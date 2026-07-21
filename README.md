@@ -1,59 +1,64 @@
-# AngularWhisperWasm
+# Angular Whisper WASM
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.5.
+Aplicação Angular que captura áudio do microfone e usa o Whisper em um Web Worker para transcrever o conteúdo localmente no navegador.
 
-## Development server
+## Visão geral
 
-To start a local development server, run:
+Este projeto demonstra uma integração simples entre:
 
-```bash
-ng serve
-```
+- Angular 21
+- Web Audio API
+- Web Workers
+- Transformers.js
+- Whisper para reconhecimento de fala rodando no navegador
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+A interface permite iniciar a gravação do microfone, processar o áudio e exibir a transcrição resultante.
 
-## Code scaffolding
+## Funcionalidades
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- Captura áudio diretamente do microfone
+- Converte o áudio para o formato esperado pelo modelo Whisper
+- Envia o áudio para um Web Worker em segundo plano
+- Exibe status de processamento e texto transcrito
 
-```bash
-ng generate component component-name
-```
+## Requisitos
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+- Node.js 20+
+- Navegador moderno com permissão para acessar o microfone
+- Suporte a Web Workers
+- (Opcional) suporte a WebGPU para melhor desempenho
 
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## Instalação
 
 ```bash
-ng test
+npm install
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+## Execução
 
 ```bash
-ng e2e
+npm start
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Abra o navegador em http://localhost:4200/ para usar a aplicação.
 
-## Additional Resources
+## Estrutura do projeto
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- src/app/components/whisper/whisper.ts: componente principal responsável pela gravação e envio do áudio
+- src/app/components/whisper/whisper.html: interface da aplicação
+- src/shared/workers/whisper.worker.ts: worker que executa o modelo Whisper em background
+- public/: arquivos estáticos
+
+## Observações importantes
+
+- A primeira execução pode levar mais tempo porque o modelo Whisper precisa ser carregado e baixado para o cache do navegador.
+- O acesso ao microfone precisa ser permitido pelo navegador.
+- O fluxo atual foi pensado para execução local no cliente, sem depender de um backend.
+
+## Build
+
+Para gerar a versão de produção:
+
+```bash
+npm run build
+```
